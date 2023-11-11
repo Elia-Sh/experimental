@@ -4,6 +4,29 @@ import tracemalloc
 import datetime
 
 
+
+def bubble_sort(array):
+    swap_counter = 0
+    compare_operations_counter = 0  # O(n^2) -> nested loop
+    # loop to access each array element
+    for i in range(len(array)):
+        # loop to compare array elements
+        for j in range(0, len(array) - i - 1):
+            compare_operations_counter+=1
+            # compare two adjacent elements
+            # change > to < to sort in descending order
+            if array[j] > array[j + 1]:
+                swap_counter+=1
+                # swapping elements if elements
+                # are not in the intended order
+                swap_members(j, j+1, array)
+    if TRACE:
+        print(f'n = length of list: {len(array)}')
+        print(f'compare operations: {compare_operations_counter}')
+        print(f'swap    operations: {swap_counter}')
+    return array
+
+
 def merge_sort(array):
     if len(array) > 1:
 
@@ -40,6 +63,7 @@ def merge_sort(array):
             array[k] = M[j]
             j += 1
             k += 1
+    return array
 
 
 def swap_members(i,j, alist) -> list:
@@ -50,6 +74,9 @@ def swap_members(i,j, alist) -> list:
 
 
 def sort_a_list(alist = []) -> list:
+    """
+    Naive bubble sort, easy to remember
+    """
     swap_counter = 0
     compare_operations_counter = 0  # O(n^2) -> nested loop
     for i in range(len(alist)):
@@ -115,6 +142,10 @@ if __name__ == "__main__":
     alist = [1,5,3,1,-1] + [1,5,3,1,-2,100,0,0,20]
     expected_result = [-2, -1, 0, 0, 1, 1, 1, 1, 3, 3, 5, 5, 20, 100]
     test_execution(alist, expected_result)
+    print('*'*60)
+    alist = [1,5,3,1,-1] + [1,5,3,1,-2,100,0,0,20]
+    expected_result = [-2, -1, 0, 0, 1, 1, 1, 1, 3, 3, 5, 5, 20, 100]
+    test_execution(alist, expected_result, 'bubble_sort')
     print('*'*60)
     alist = [1,5,3,1,-1] + [1,5,3,1,-2,100,0,0,20]
     expected_result = [-2, -1, 0, 0, 1, 1, 1, 1, 3, 3, 5, 5, 20, 100]
